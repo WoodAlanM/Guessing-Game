@@ -17,19 +17,20 @@ def start_game():
     random_number = rand.randint(1, 10)
 
     # Variable for controlling the overall loop
-    bool_exit = False
+    bool_exit = True
 
     # Variables for controlling play through
     is_first_turn = True
     showed_high_score = False
     play_again = False
+    guess = 0
 
     # Variables for keeping track of high score and
     # number of tries
     number_of_tries = 0
     high_score = 0
 
-    while bool_exit == False:
+    while bool_exit:
         # If it is the first turn and the high score hasnt been shown
         # then the high score will not be shown otherwise it will
         if is_first_turn == False and showed_high_score == False:
@@ -39,7 +40,11 @@ def start_game():
             number_of_tries = 0
             showed_high_score = True
         # Requests a number from the user and changes it to an int for comparison
-        guess = int(input("Choose a number between 1 and 10: "))
+        # if there is an error prompt the user to use only numbers
+        try:
+            guess = int(input("Choose a number between 1 and 10: "))
+        except:
+            print("Please choose only a number between 1 and 10.")
         # Checks to make sure the guess is within range
         # if not then the user is prompted to fix it
         if guess > 10 or guess < 1:
@@ -67,7 +72,7 @@ def start_game():
                     play_again = True
                     # bool_exit is set to True to break the containing loop
                     # and exiting the game
-                    bool_exit = True
+                    bool_exit = False
                 # If the user chooses a value that is not Y,y,N,n then they are prompted to do so
                 else:
                     print("Please choose either y for yes or n for no.")
